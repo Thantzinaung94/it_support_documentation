@@ -151,3 +151,6 @@ sudo apt update && sudo apt install ntfs-3g
 
 sudo ntfsfix /dev/sda1
 ```
+
+![NTFS Step 1](./image/ntfs1.jpg)
+![NTFS Step 2](./image/ntfs2.jpg)
