@@ -1,8 +1,493 @@
-# Additional File Viewing Commands in Ubuntu Server 26.04
+# File Management in Ubuntu Server 26.04
 
-These commands are commonly used for reading, monitoring, and navigating file contents in Ubuntu Server.
+## Objective
+This document explains basic and advanced file management commands in Ubuntu Server 26.04. It includes creating, viewing, copying, moving, deleting, searching, compressing, and changing permissions of files and directories.
 
 ---
+
+# Environment
+
+| Item | Description |
+|---|---|
+| Operating System | Ubuntu Server 26.04 |
+| Shell | Bash |
+| User Type | Root / Sudo User |
+| Terminal | Ubuntu Terminal / SSH |
+
+---
+
+# 1. Understanding Linux File System
+
+Linux stores everything as files.
+
+Common directories:
+
+| Directory | Purpose |
+|---|---|
+| `/home` | User home directories |
+| `/etc` | Configuration files |
+| `/var` | Logs and variable data |
+| `/tmp` | Temporary files |
+| `/root` | Root user home |
+| `/usr` | User programs and packages |
+
+---
+
+# 2. Check Current Directory
+
+## Command
+```bash
+pwd
+```
+
+## Explanation
+Displays the current working directory.
+
+## Example Output
+```bash
+/home/student
+```
+
+---
+
+# 3. List Files and Directories
+
+## Basic List
+```bash
+ls
+```
+
+## Detailed List
+```bash
+ls -l
+```
+
+## Show Hidden Files
+```bash
+ls -la
+```
+
+## Explanation
+- `-l` → Long listing format
+- `-a` → Show hidden files
+
+---
+
+# 4. Change Directory
+
+## Command
+```bash
+cd directory_name
+```
+
+## Example
+```bash
+cd /etc
+```
+
+## Return to Home Directory
+```bash
+cd
+```
+
+## Go Back One Directory
+```bash
+cd ..
+```
+
+---
+
+# 5. Create Files
+
+## Using touch
+```bash
+touch file1.txt
+```
+
+## Create Multiple Files
+```bash
+touch file1.txt file2.txt file3.txt
+```
+
+---
+
+# 6. Create Directories
+
+## Command
+```bash
+mkdir testfolder
+```
+
+## Create Multiple Directories
+```bash
+mkdir dir1 dir2 dir3
+```
+
+## Create Nested Directories
+```bash
+mkdir -p parent/child/grandchild
+```
+
+---
+
+# 7. View File Contents
+
+## Using cat
+```bash
+cat file1.txt
+```
+
+## Using less
+```bash
+less file1.txt
+```
+
+## Using head
+```bash
+head file1.txt
+```
+
+## Using tail
+```bash
+tail file1.txt
+```
+
+## Real-time Log Monitoring
+```bash
+tail -f /var/log/syslog
+```
+
+---
+
+# 8. Edit Files
+
+## Using nano
+```bash
+nano file1.txt
+```
+
+## Using vim
+```bash
+vim file1.txt
+```
+
+---
+
+# 9. Copy Files and Directories
+
+## Copy File
+```bash
+cp file1.txt backup.txt
+```
+
+## Copy Directory
+```bash
+cp -r testfolder backupfolder
+```
+
+## Explanation
+- `-r` → Recursive copy
+
+---
+
+# 10. Move and Rename Files
+
+## Move File
+```bash
+mv file1.txt /home/student/
+```
+
+## Rename File
+```bash
+mv oldname.txt newname.txt
+```
+
+---
+
+# 11. Delete Files and Directories
+
+## Remove File
+```bash
+rm file1.txt
+```
+
+## Remove Directory
+```bash
+rm -r testfolder
+```
+
+## Force Delete
+```bash
+rm -rf testfolder
+```
+
+## Warning
+`rm -rf` permanently deletes files without confirmation.
+
+---
+
+# 12. Search Files and Directories
+
+## Find File
+```bash
+find /home -name file1.txt
+```
+
+## Find Directory
+```bash
+find / -type d -name testfolder
+```
+
+## Locate Command
+```bash
+locate file1.txt
+```
+
+## Update Locate Database
+```bash
+sudo updatedb
+```
+
+---
+
+# 13. File Permissions
+
+## View Permissions
+```bash
+ls -l
+```
+
+## Example Output
+```bash
+-rw-r--r-- 1 student student 0 May 10 10:00 file1.txt
+```
+
+## Permission Meaning
+
+| Symbol | Meaning |
+|---|---|
+| r | Read |
+| w | Write |
+| x | Execute |
+
+---
+
+# 14. Change File Permissions
+
+## Using chmod
+```bash
+chmod 755 script.sh
+```
+
+## Explanation
+
+| Number | Permission |
+|---|---|
+| 7 | rwx |
+| 6 | rw- |
+| 5 | r-x |
+| 4 | r-- |
+
+---
+
+# 15. Change File Ownership
+
+## Change Owner
+```bash
+sudo chown user:user file1.txt
+```
+
+## Example
+```bash
+sudo chown student:student file1.txt
+```
+
+---
+
+# 16. Check File Size
+
+## Human Readable Format
+```bash
+du -h file1.txt
+```
+
+## Check Disk Usage
+```bash
+df -h
+```
+
+---
+
+# 17. Compress and Extract Files
+
+## Create tar Archive
+```bash
+tar -cvf backup.tar testfolder
+```
+
+## Extract tar Archive
+```bash
+tar -xvf backup.tar
+```
+
+## Create gzip File
+```bash
+gzip file1.txt
+```
+
+## Extract gzip File
+```bash
+gunzip file1.txt.gz
+```
+
+---
+
+# 18. File Comparison
+
+## Compare Files
+```bash
+diff file1.txt file2.txt
+```
+
+---
+
+# 19. Check File Type
+
+## Command
+```bash
+file file1.txt
+```
+
+## Example Output
+```bash
+file1.txt: ASCII text
+```
+
+---
+
+# 20. Create Symbolic Links
+
+## Command
+```bash
+ln -s /path/originalfile shortcut
+```
+
+## Example
+```bash
+ln -s /var/log/syslog syslog_link
+```
+
+---
+
+# 21. File Management with Wildcards
+
+## Examples
+
+### All TXT Files
+```bash
+ls *.txt
+```
+
+### All Files Starting with "log"
+```bash
+ls log*
+```
+
+### All Files Ending with ".conf"
+```bash
+ls *.conf
+```
+
+---
+
+# 22. Display Hidden Files
+
+Hidden files start with `.`
+
+## Command
+```bash
+ls -la
+```
+
+---
+
+# 23. Monitor Open Files
+
+## Command
+```bash
+lsof
+```
+
+## Example
+```bash
+sudo lsof /var/log/syslog
+```
+
+---
+
+# 24. Archive and Backup Example
+
+## Create Backup Directory
+```bash
+mkdir backup
+```
+
+## Copy Important Files
+```bash
+cp -r /etc backup/
+```
+
+## Compress Backup
+```bash
+tar -czvf backup.tar.gz backup/
+```
+
+---
+
+# Verification
+
+## Verify File Creation
+```bash
+ls
+```
+
+## Verify Permissions
+```bash
+ls -l
+```
+
+## Verify Ownership
+```bash
+ls -l file1.txt
+```
+
+## Verify Compression
+```bash
+tar -tvf backup.tar
+```
+
+---
+
+# Common File Management Commands Summary
+
+| Command | Description |
+|---|---|
+| `pwd` | Show current directory |
+| `ls` | List files |
+| `cd` | Change directory |
+| `touch` | Create file |
+| `mkdir` | Create directory |
+| `cp` | Copy files |
+| `mv` | Move/Rename files |
+| `rm` | Delete files |
+| `find` | Search files |
+| `chmod` | Change permissions |
+| `chown` | Change ownership |
+| `tar` | Archive files |
+| `gzip` | Compress files |
+
+---
+
 
 # 25. Using `cat` Command
 
@@ -424,7 +909,9 @@ grep "error" /var/log/syslog
 
 # Conclusion
 
-These file viewing and text-processing commands are essential for Linux system administration in Ubuntu Server 26.04. They help administrators efficiently inspect logs, analyze files, search data, and monitor system activity from the command line.
+Ubuntu Server 26.04 provides powerful file management tools through the command line. Understanding these commands helps administrators efficiently manage files, directories, permissions, backups, and storage in Linux server environments.
+
+
 
 ![Linux_File_Permissions_Cheat_Sheet](./asset/Linux_File_Permissions_Cheat_Sheet.pdf)
 ![ubuntu_file_management](./asset/ubuntu_file_management.pdf)
