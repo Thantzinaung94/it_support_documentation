@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apache2 Web Server — Ubuntu 26.04 | IT Support Documentation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --deep-navy: #1a365d;
+            --navy-dark: #0f2744;
+            --emerald: #10b981;
+            --emerald-dark: #059669;
+            --crisp-white: #ffffff;
+            --off-white: #f8fafc;
+            --light-gray: #e2e8f0;
+            --text-gray: #64748b;
+            --dark-text: #1e293b;
+            --apache-orange: #d22128;
+            --ubuntu-orange: #e95420;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--off-white);
+            color: var(--dark-text);
+            overflow-x: hidden;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--deep-navy) 0%, var(--navy-dark) 100%);
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--emerald);
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+        .hero-title {
+            font-size: 3.2rem;
+            font-weight: 800;
+            color: var(--crisp-white);
+            line-height: 1.15;
+            margin-bottom: 1rem;
+        }
+        .hero-title span { color: var(--emerald); }
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.7);
+            max-width: 600px;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+        .hero-meta {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .hero-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
+        }
+        .hero-meta-item i {
+            color: var(--emerald);
+            font-size: 1.1rem;
+        }
+        .server-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid var(--emerald);
+            color: var(--emerald);
+            padding: 0.6rem 1.2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .server-indicator::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--emerald);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* Section styling */
+        .section-padding { padding: 5rem 0; }
+        .section-label {
+            display: inline-block;
+            color: var(--emerald);
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--deep-navy);
+            margin-bottom: 1rem;
+        }
+        .section-subtitle {
+            color: var(--text-gray);
+            font-size: 1.05rem;
+            max-width: 600px;
+        }
+
+        /* Info Cards */
+        .info-card {
+            background: var(--crisp-white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            height: 100%;
+        }
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border-color: var(--emerald);
+        }
+        .info-card-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin-bottom: 1.2rem;
+        }
+        .info-card-icon.apache { background: rgba(210, 33, 40, 0.1); color: var(--apache-orange); }
+        .info-card-icon.ubuntu { background: rgba(233, 84, 32, 0.1); color: var(--ubuntu-orange); }
+        .info-card-icon.server { background: rgba(16, 185, 129, 0.1); color: var(--emerald); }
+        .info-card-icon.network { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+        .info-card h4 {
+            font-weight: 700;
+            color: var(--deep-navy);
+            margin-bottom: 0.6rem;
+            font-size: 1.15rem;
+        }
+        .info-card p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+        .info-card .badge-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 1rem;
+        }
+        .info-card .badge-item {
+            background: var(--off-white);
+            padding: 0.3rem 0.7rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-gray);
+        }
+
+        /* Terminal Block */
+        .terminal {
+            background: #1e1e2e;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        .terminal-header {
+            background: #181825;
+            padding: 0.8rem 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .terminal-dot.red { background: #f38ba8; }
+        .terminal-dot.yellow { background: #f9e2af; }
+        .terminal-dot.green { background: #a6e3a1; }
+        .terminal-title {
+            margin-left: 0.5rem;
+            color: #6c7086;
+            font-size: 0.8rem;
+        }
+        .terminal-body {
+            padding: 1.5rem;
+            font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            color: #cdd6f4;
+        }
+        .terminal-body .prompt { color: #a6e3a1; }
+        .terminal-body .cmd { color: #89b4fa; }
+        .terminal-body .output { color: #cdd6f4; }
+        .terminal-body .comment { color: #6c7086; }
+        .terminal-body .highlight { color: #f9e2af; }
+        .terminal-body .success { color: #a6e3a1; }
+
+        /* Status Table */
+        .status-table {
+            background: var(--crisp-white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .status-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .status-table th {
+            background: var(--off-white);
+            padding: 1rem 1.5rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-gray);
+            border-bottom: 1px solid var(--light-gray);
+        }
+        .status-table td {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--light-gray);
+            font-size: 0.9rem;
+        }
+        .status-table tr:last-child td { border-bottom: none; }
+        .status-table tr:hover { background: rgba(16, 185, 129, 0.03); }
+        .status-online {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--emerald);
+            font-weight: 600;
+        }
+        .status-online::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--emerald);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--deep-navy);
+            color: rgba(255,255,255,0.7);
+            padding: 2rem 0;
+            text-align: center;
+        }
+        .footer p { margin: 0; font-size: 0.9rem; }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.2rem; }
+            .section-title { font-size: 1.6rem; }
+            .hero-meta { gap: 1rem; }
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <div class="hero-badge">
+                        <i class="bi bi-check-circle-fill"></i>
+                        IT Support Documentation
+                    </div>
+                    <h1 class="hero-title">
+                        Apache2 Web Server<br><span>Ubuntu Server 26.04</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        This page demonstrates a successfully implemented and operational Apache2 HTTP web server running on Ubuntu Server 26.04 LTS. Verified deployment for internal IT infrastructure documentation.
+                    </p>
+                    <div class="hero-meta">
+                        <div class="hero-meta-item">
+                            <i class="bi bi-hdd-network"></i>
+                            <span>Server: web-01.local</span>
+                        </div>
+                        <div class="hero-meta-item">
+                            <i class="bi bi-globe"></i>
+                            <span>IP: 192.168.1.100</span>
+                        </div>
+                        <div class="hero-meta-item">
+                            <i class="bi bi-clock"></i>
+                            <span>Uptime: 14 days, 6 hours</span>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <span class="server-indicator">Server Operational</span>
+                    </div>
+                </div>
+                <div class="col-lg-4 d-none d-lg-block">
+                    <div class="text-center">
+                        <div style="width: 180px; height: 180px; background: rgba(255,255,255,0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; border: 2px solid rgba(16, 185, 129, 0.3);">
+                            <i class="bi bi-server" style="font-size: 5rem; color: var(--emerald);"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Server Overview -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="section-label">Overview</span>
+                <h2 class="section-title">Server Configuration</h2>
+                <p class="section-subtitle mx-auto">Key details of the deployed Apache2 web server environment on Ubuntu 26.04</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="info-card">
+                        <div class="info-card-icon apache"><i class="bi bi-globe"></i></div>
+                        <h4>Apache2</h4>
+                        <p>HTTP Server version 2.4.62 running with event MPM and SSL module enabled.</p>
+                        <div class="badge-list">
+                            <span class="badge-item">mod_ssl</span>
+                            <span class="badge-item">mod_rewrite</span>
+                            <span class="badge-item">mod_headers</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="info-card">
+                        <div class="info-card-icon ubuntu"><i class="bi bi-ubuntu"></i></div>
+                        <h4>Ubuntu 26.04</h4>
+                        <p>Long-Term Support release with 5 years of security updates and maintenance.</p>
+                        <div class="badge-list">
+                            <span class="badge-item">Kernel 6.14</span>
+                            <span class="badge-item">Systemd</span>
+                            <span class="badge-item">UFW</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="info-card">
+                        <div class="info-card-icon server"><i class="bi bi-hdd"></i></div>
+                        <h4>Hardware</h4>
+                        <p>Virtualized server provisioned with dedicated resources for web hosting.</p>
+                        <div class="badge-list">
+                            <span class="badge-item">4 vCPU</span>
+                            <span class="badge-item">8 GB RAM</span>
+                            <span class="badge-item">100 GB SSD</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="info-card">
+                        <div class="info-card-icon network"><i class="bi bi-shield-check"></i></div>
+                        <h4>Security</h4>
+                        <p>HTTPS enabled with Let's Encrypt certificate. Firewall configured via UFW.</p>
+                        <div class="badge-list">
+                            <span class="badge-item">TLS 1.3</span>
+                            <span class="badge-item">Certbot</span>
+                            <span class="badge-item">Fail2Ban</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Status Table -->
+    <section class="section-padding" style="background: var(--off-white);">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="section-label">Live Status</span>
+                <h2 class="section-title">Service Health Monitor</h2>
+                <p class="section-subtitle mx-auto">Real-time status of core services and network endpoints</p>
+            </div>
+            <div class="status-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>Version</th>
+                            <th>Port</th>
+                            <th>Status</th>
+                            <th>PID</th>
+                            <th>Memory</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Apache2 HTTP</strong></td>
+                            <td>2.4.62</td>
+                            <td>80 / 443</td>
+                            <td><span class="status-online">Running</span></td>
+                            <td>1245</td>
+                            <td>128 MB</td>
+                        </tr>
+                        <tr>
+                            <td><strong>MySQL</strong></td>
+                            <td>8.4.0</td>
+                            <td>3306</td>
+                            <td><span class="status-online">Running</span></td>
+                            <td>1523</td>
+                            <td>512 MB</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PHP-FPM</strong></td>
+                            <td>8.4.2</td>
+                            <td>9000</td>
+                            <td><span class="status-online">Running</span></td>
+                            <td>1847</td>
+                            <td>256 MB</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SSH</strong></td>
+                            <td>OpenSSH 9.8</td>
+                            <td>22</td>
+                            <td><span class="status-online">Running</span></td>
+                            <td>891</td>
+                            <td>24 MB</td>
+                        </tr>
+                        <tr>
+                            <td><strong>UFW Firewall</strong></td>
+                            <td>0.36</td>
+                            <td>N/A</td>
+                            <td><span class="status-online">Active</span></td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Installation Steps -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="section-label">Implementation</span>
+                <h2 class="section-title">Deployment Commands</h2>
+                <p class="section-subtitle mx-auto">Command-line reference used to install and configure the Apache2 web server</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="terminal">
+                        <div class="terminal-header">
+                            <span class="terminal-dot red"></span>
+                            <span class="terminal-dot yellow"></span>
+                            <span class="terminal-dot green"></span>
+                            <span class="terminal-title">admin@web-01:~</span>
+                        </div>
+                        <div class="terminal-body">
+                            <div><span class="prompt">$</span> <span class="cmd">sudo apt update && sudo apt upgrade -y</span></div>
+                            <div class="output">Hit:1 http://archive.ubuntu.com/ubuntu noble InRelease</div>
+                            <div class="output">Reading package lists... Done</div>
+                            <div class="output">Building dependency tree... Done</div>
+                            <div style="margin-top: 1rem;"><span class="prompt">$</span> <span class="cmd">sudo apt install apache2 -y</span></div>
+                            <div class="output">Setting up apache2 (2.4.62-1ubuntu1) ...</div>
+                            <div class="output">Created symlink /etc/systemd/system/multi-user.target.wants/apache2.service</div>
+                            <div class="success">apache2.service enabled</div>
+                            <div style="margin-top: 1rem;"><span class="prompt">$</span> <span class="cmd">sudo systemctl status apache2</span></div>
+                            <div class="highlight">apache2.service - The Apache HTTP Server</div>
+                            <div class="success">Active: active (running) since Mon 2026-05-01 08:30:00 UTC</div>
+                            <div style="margin-top: 1rem;"><span class="prompt">$</span> <span class="cmd">sudo ufw allow 'Apache Full'</span></div>
+                            <div class="output">Rules updated</div>
+                            <div class="output">Rules updated (v6)</div>
+                            <div style="margin-top: 1rem;"><span class="comment"># Verify installation</span></div>
+                            <div><span class="prompt">$</span> <span class="cmd">curl -I http://localhost</span></div>
+                            <div class="highlight">HTTP/1.1 200 OK</div>
+                            <div class="highlight">Server: Apache/2.4.62 (Ubuntu)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Network Info -->
+    <section class="section-padding" style="background: var(--off-white);">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="section-label">Network</span>
+                <h2 class="section-title">Endpoint Configuration</h2>
+                <p class="section-subtitle mx-auto">Accessible URLs and network parameters for this deployment</p>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-6 col-lg-4">
+                    <div class="info-card text-center">
+                        <div class="info-card-icon server" style="margin: 0 auto 1.2rem;"><i class="bi bi-house-door"></i></div>
+                        <h4>Local Access</h4>
+                        <p style="font-family: monospace; font-size: 1rem; color: var(--emerald); font-weight: 600;">http://localhost</p>
+                        <p class="mt-2" style="font-size: 0.85rem;">From the server itself</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="info-card text-center">
+                        <div class="info-card-icon network" style="margin: 0 auto 1.2rem;"><i class="bi bi-ethernet"></i></div>
+                        <h4>LAN Access</h4>
+                        <p style="font-family: monospace; font-size: 1rem; color: var(--emerald); font-weight: 600;">http://192.168.1.100</p>
+                        <p class="mt-2" style="font-size: 0.85rem;">From the local network</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="info-card text-center">
+                        <div class="info-card-icon apache" style="margin: 0 auto 1.2rem;"><i class="bi bi-lock"></i></div>
+                        <h4>HTTPS Access</h4>
+                        <p style="font-family: monospace; font-size: 1rem; color: var(--emerald); font-weight: 600;">https://web-01.local</p>
+                        <p class="mt-2" style="font-size: 0.85rem;">Secure SSL connection</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p><i class="bi bi-shield-check" style="color: var(--emerald); margin-right: 0.5rem;"></i>Apache2 Web Server on Ubuntu 26.04 — Deployed and verified for IT Support Documentation</p>
+            <p style="margin-top: 0.5rem; font-size: 0.8rem; opacity: 0.6;">Server Time: 2026-05-13 22:15:00 UTC | Document Version: 1.0</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
