@@ -1,4 +1,4 @@
-# File Management in Ubuntu Server 26.04
+# File Management of Ubuntu Server 26.04
 
 ## Objective
 This document explains basic and advanced file management commands in Ubuntu Server 26.04. It includes creating, viewing, copying, moving, deleting, searching, compressing, and changing permissions of files and directories.
@@ -913,5 +913,5 @@ Ubuntu Server 26.04 provides powerful file management tools through the command 
 
 
 
-![Linux_File_Permissions_Cheat_Sheet](./asset/Linux_File_Permissions_Cheat_Sheet.pdf)
-![ubuntu_file_management](./asset/ubuntu_file_management.pdf)
+[Linux_File_Permissions_Cheat_Sheet](./asset/Linux_File_Permissions_Cheat_Sheet.pdf)
+[ubuntu_file_management](./asset/ubuntu_file_management.pdf)
