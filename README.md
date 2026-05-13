@@ -1,1 +1,3 @@
-![Welcome to my IT Support Documentation](./welcome_to_my_it_support_documentation.png)
+# Welcome to My IT Support Documentation.......
+
+![Welcome to my IT Support Documentation](./welcome_to_my_it_support_documentation.jpg)
