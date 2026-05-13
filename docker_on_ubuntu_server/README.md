@@ -317,3 +317,5 @@ Docker was successfully installed on the Ubuntu Server.
 The Nginx container was downloaded and deployed successfully using Docker.
 
 The web server was verified through both command-line testing and browser access.
+
+[Welcomepage](./asset/image/welcomepage.png)
