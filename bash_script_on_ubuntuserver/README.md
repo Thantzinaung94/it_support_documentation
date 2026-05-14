@@ -421,3 +421,6 @@ echo "Today's date is $(date)"
 Bash scripting is an essential skill for Linux system administrators and DevOps engineers. By learning variables, loops, functions, conditionals, and automation tools like Cron, users can automate repetitive tasks and manage servers more efficiently.
 
 With regular practice, Bash scripting becomes a powerful tool for managing Ubuntu Server environments.
+
+![samplecode](./asset/image/samplecode.png)
+![result](./asset/image/output.png)
