@@ -1,603 +1,366 @@
-# Bash Scripting on Ubuntu Server
+# Bash Scripting Documentation
 
 ## Introduction
 
-Bash scripting is the process of writing a series of commands in a text file that can be executed automatically by the Bash shell. Bash scripts help system administrators and developers automate repetitive tasks such as backups, system updates, user management, monitoring, and deployment.
+Bash scripting is a powerful way to automate tasks in Linux systems such as Ubuntu Server. A Bash script is a text file containing a series of commands that are executed by the Bash shell.
 
-Ubuntu Server uses **Bash (Bourne Again Shell)** as the default command-line shell.
+Bash scripts are commonly used for:
 
----
-
-# Objectives
-
-By the end of this documentation, you will learn:
-
-- What Bash scripting is
-- How to create and run Bash scripts
-- Bash script syntax and structure
-- Variables and user input
-- Conditional statements
-- Loops
-- Functions
-- File permissions
-- Practical automation examples
+- System administration
+- Automation tasks
+- File management
+- Backup operations
+- Monitoring services
+- User management
 
 ---
 
-# Environment
+# Bash Scripting Cheat Sheet
 
-| Component | Details |
-|---|---|
-| Operating System | Ubuntu Server 26.04 |
-| Shell | Bash |
-| Editor | Nano / Vim |
-| Terminal | Ubuntu Server CLI |
+## ✅ Basic Structure
 
----
-
-# What is Bash?
-
-Bash is a command-line interpreter used in Linux systems.
-
-It allows users to:
-
-- Execute Linux commands
-- Automate tasks
-- Manage files and users
-- Create shell scripts
-
-Check the current shell:
-
-```bash
-echo $SHELL
-```
-
-Example output:
-
-```bash
-/bin/bash
-```
-
----
-
-# What is a Bash Script?
-
-A Bash script is a file containing Linux commands executed sequentially.
-
-Example:
-
-```bash
-#!/bin/bash
-echo "Hello World"
-```
-
----
-
-# Script File Extension
-
-Bash scripts commonly use:
-
-```text
-.sh
-```
-
-Example:
-
-```text
-backup.sh
-update.sh
-```
-
----
-
-# Step 1 — Create a Bash Script
-
-Create a new script file:
-
-```bash
-nano hello.sh
-```
-
-Add the following content:
+Every Bash script usually starts with a *shebang* line that tells the system which interpreter to use.
 
 ```bash
 #!/bin/bash
 
-echo "Hello, Ubuntu Server!"
-```
-
-Save the file:
-
-```text
-CTRL + O → Enter → CTRL + X
-```
-
----
-
-# Step 2 — Make Script Executable
-
-By default, scripts are not executable.
-
-Use:
-
-```bash
-chmod +x hello.sh
-```
-
-Verify permissions:
-
-```bash
-ls -l hello.sh
-```
-
-Example output:
-
-```bash
--rwxr-xr-x 1 user user 45 May 14 10:00 hello.sh
-```
-
----
-
-# Step 3 — Run the Script
-
-Execute the script:
-
-```bash
-./hello.sh
-```
-
-Output:
-
-```bash
-Hello, Ubuntu Server!
-```
-
----
-
-# Understanding the Shebang
-
-The first line:
-
-```bash
-#!/bin/bash
-```
-
-is called the **Shebang**.
-
-It tells Linux to execute the script using the Bash interpreter.
-
----
-
-# Comments in Bash
-
-Comments help describe code.
-
-Single-line comment:
-
-```bash
 # This is a comment
+echo "Hello, world!"
 ```
 
-Example:
+### Explanation
+
+- `#!/bin/bash` → Defines Bash as the script interpreter
+- `#` → Used for comments
+- `echo` → Prints text to the terminal
+
+---
+
+# 📁 Running a Script
+
+Before running a script, make it executable using the `chmod` command.
 
 ```bash
-#!/bin/bash
+chmod +x script.sh     # Make it executable
+./script.sh            # Run the script
+```
 
-# Display welcome message
-echo "Welcome"
+### Explanation
+
+- `chmod +x` → Adds execute permission
+- `./script.sh` → Executes the script from the current directory
+
+---
+
+# 📦 Variables
+
+Variables store data that can be reused later in the script.
+
+```bash
+name="Dan"
+echo "Hello, $name"
+```
+
+### Explanation
+
+- `name="Dan"` → Creates a variable
+- `$name` → Accesses the variable value
+
+### Output
+
+```bash
+Hello, Dan
 ```
 
 ---
 
-# Variables in Bash
+# 💬 User Input
 
-Variables store data.
-
-Example:
+Use the `read` command to get input from the user.
 
 ```bash
-#!/bin/bash
-
-name="Thant"
-echo "Hello $name"
+read -p "Enter your name: " username
+echo "Welcome, $username!"
 ```
 
-Output:
+### Explanation
 
-```bash
-Hello Thant
-```
+- `read` → Accepts user input
+- `-p` → Displays a prompt message
 
 ---
 
-# User Input
+# 📄 Conditionals
 
-Use `read` to accept user input.
-
-Example:
+Conditionals allow scripts to make decisions.
 
 ```bash
-#!/bin/bash
-
-echo "Enter your name:"
-read username
-
-echo "Welcome $username"
-```
-
----
-
-# Command-Line Arguments
-
-Scripts can accept arguments.
-
-Example:
-
-```bash
-#!/bin/bash
-
-echo "First argument: $1"
-echo "Second argument: $2"
-```
-
-Run:
-
-```bash
-./script.sh Ubuntu Server
-```
-
-Output:
-
-```bash
-First argument: Ubuntu
-Second argument: Server
-```
-
----
-
-# Important Special Variables
-
-| Variable | Description |
-|---|---|
-| `$0` | Script name |
-| `$1-$9` | Arguments |
-| `$#` | Number of arguments |
-| `$?` | Exit status |
-| `$$` | Process ID |
-
-Example:
-
-```bash
-echo "Script Name: $0"
-echo "Argument Count: $#"
-```
-
----
-
-# Conditional Statements
-
-## if Statement
-
-Example:
-
-```bash
-#!/bin/bash
-
-number=10
-
-if [ $number -gt 5 ]
-then
-    echo "Number is greater than 5"
-fi
-```
-
----
-
-# if-else Statement
-
-Example:
-
-```bash
-#!/bin/bash
-
-read -p "Enter password: " pass
-
-if [ "$pass" = "admin123" ]
-then
-    echo "Access Granted"
+if [ "$name" == "admin" ]; then
+  echo "Access granted."
 else
-    echo "Access Denied"
+  echo "Access denied."
 fi
+```
+
+### Explanation
+
+- `if` → Starts a condition
+- `then` → Runs commands if true
+- `else` → Runs commands if false
+- `fi` → Ends the condition block
+
+---
+
+# 🔁 Loops
+
+Loops repeat commands multiple times.
+
+## For Loop
+
+```bash
+for i in {1..5}; do
+  echo "Number $i"
+done
+```
+
+### Output
+
+```bash
+Number 1
+Number 2
+Number 3
+Number 4
+Number 5
 ```
 
 ---
 
-# Comparison Operators
+## While Loop
+
+```bash
+count=1
+
+while [ $count -le 3 ]; do
+  echo "Count: $count"
+  ((count++))
+done
+```
+
+### Explanation
+
+- `-le` → Less than or equal to
+- `((count++))` → Increments the value
+
+---
+
+# ⚙️ Functions
+
+Functions help organize reusable code blocks.
+
+```bash
+greet() {
+  echo "Hello, $1!"
+}
+
+greet "Dan"
+```
+
+### Explanation
+
+- `greet()` → Function name
+- `$1` → First argument passed to the function
+
+---
+
+# 🧮 Arithmetic Operations
+
+Bash supports basic arithmetic calculations.
+
+```bash
+a=5
+b=3
+
+sum=$((a + b))
+
+echo "Sum is $sum"
+```
+
+### Output
+
+```bash
+Sum is 8
+```
+
+---
+
+# 📦 Arrays
+
+Arrays store multiple values in a single variable.
+
+```bash
+fruits=("apple" "banana" "cherry")
+
+echo "${fruits[1]}"     # banana
+echo "${fruits[@]}"     # all elements
+```
+
+### Explanation
+
+- `${fruits[1]}` → Access second element
+- `${fruits[@]}` → Display all elements
+
+---
+
+# 📂 File and Directory Checks
+
+Check whether files or directories exist.
+
+## File Check
+
+```bash
+if [ -f "file.txt" ]; then
+  echo "File exists."
+fi
+```
+
+## Directory Check
+
+```bash
+if [ -d "/etc" ]; then
+  echo "Directory exists."
+fi
+```
+
+### Common Test Operators
 
 | Operator | Meaning |
 |---|---|
-| `-eq` | Equal |
-| `-ne` | Not Equal |
-| `-gt` | Greater Than |
-| `-lt` | Less Than |
-| `-ge` | Greater or Equal |
-| `-le` | Less or Equal |
+| `-f` | File exists |
+| `-d` | Directory exists |
+| `-r` | Readable |
+| `-w` | Writable |
+| `-x` | Executable |
 
 ---
 
-# Loops in Bash
+# 🗃️ Command Substitution
 
-## for Loop
-
-Example:
+Store command output inside a variable.
 
 ```bash
-#!/bin/bash
+date_today=$(date)
 
-for i in 1 2 3 4 5
-do
-    echo "Number: $i"
-done
+echo "Today is $date_today"
 ```
+
+### Explanation
+
+- `$(command)` → Executes command and stores output
 
 ---
 
-# while Loop
+# 🐛 Error Handling
 
-Example:
+Use logical operators to handle errors.
 
 ```bash
-#!/bin/bash
-
-count=1
-
-while [ $count -le 5 ]
-do
-    echo "Count: $count"
-    ((count++))
-done
+command || echo "Command failed"
 ```
+
+### Explanation
+
+- `||` → Runs the second command if the first fails
 
 ---
 
-# Functions in Bash
+# 🔁 Case Statement
 
-Functions organize reusable code.
-
-Example:
+Case statements are useful for menu systems and choices.
 
 ```bash
-#!/bin/bash
+read -p "Enter choice: " choice
 
-greet() {
-    echo "Welcome to Ubuntu Server"
-}
-
-greet
+case $choice in
+  y|Y) echo "You chose yes";;
+  n|N) echo "You chose no";;
+  *)   echo "Invalid choice";;
+esac
 ```
+
+### Explanation
+
+- `case` → Starts case statement
+- `;;` → Ends each option
+- `*` → Default case
 
 ---
 
-# File and Directory Operations
+# 🕓 Cron Jobs and Scripts
 
-## Create Directory
+Cron jobs automate script execution at scheduled times.
 
-```bash
-mkdir backup
-```
-
-## Create File
-
-```bash
-touch test.txt
-```
-
-## Copy File
-
-```bash
-cp file1.txt backup/
-```
-
-## Remove File
-
-```bash
-rm file1.txt
-```
-
----
-
-# Using Date and Time
-
-Example:
-
-```bash
-#!/bin/bash
-
-echo "Current Date:"
-date
-```
-
----
-
-# System Information Script
-
-Example:
-
-```bash
-#!/bin/bash
-
-echo "Hostname: $(hostname)"
-echo "Current User: $(whoami)"
-echo "Kernel Version:"
-uname -r
-```
-
----
-
-# Backup Script Example
-
-Create backup script:
-
-```bash
-nano backup.sh
-```
-
-Script:
-
-```bash
-#!/bin/bash
-
-backup_dir="/backup"
-source_dir="/home"
-
-mkdir -p $backup_dir
-
-tar -czvf $backup_dir/home_backup.tar.gz $source_dir
-
-echo "Backup Completed"
-```
-
-Make executable:
-
-```bash
-chmod +x backup.sh
-```
-
-Run:
-
-```bash
-./backup.sh
-```
-
----
-
-# Automatic System Update Script
-
-Example:
-
-```bash
-#!/bin/bash
-
-sudo apt update
-sudo apt upgrade -y
-
-echo "System Updated Successfully"
-```
-
----
-
-# Exit Status
-
-Linux commands return exit codes.
-
-Check status:
-
-```bash
-echo $?
-```
-
-| Exit Code | Meaning |
-|---|---|
-| `0` | Success |
-| Non-zero | Error |
-
----
-
-# Debugging Bash Scripts
-
-Run script in debug mode:
-
-```bash
-bash -x script.sh
-```
-
-Example:
-
-```bash
-bash -x hello.sh
-```
-
----
-
-# Scheduling Scripts with Cron
-
-Open cron table:
+## Open Crontab
 
 ```bash
 crontab -e
 ```
 
-Example — run backup daily at midnight:
+## Run Script Every Day at 6 AM
 
 ```bash
-0 0 * * * /home/user/backup.sh
+0 6 * * * /home/user/scripts/myscript.sh
+```
+
+### Cron Format
+
+```text
+* * * * * command
+│ │ │ │ │
+│ │ │ │ └── Day of week
+│ │ │ └──── Month
+│ │ └────── Day
+│ └──────── Hour
+└────────── Minute
 ```
 
 ---
 
-# Best Practices
+# 📜 Logging Output
 
-- Use meaningful script names
-- Add comments
-- Test scripts before production use
-- Use absolute paths
-- Keep backups of important scripts
-- Use proper permissions
+Save script output into a log file.
+
+```bash
+echo "Starting task..." >> /var/log/myscript.log
+```
+
+### Explanation
+
+- `>>` → Appends output to a file
 
 ---
 
-# Common Bash Commands
+# 🔒 Script Permissions
 
-| Command | Description |
+Manage permissions for security.
+
+```bash
+chmod +x myscript.sh     # Make executable
+chmod 700 myscript.sh    # Only owner can run
+```
+
+### Permission Meaning
+
+| Permission | Description |
 |---|---|
-| `echo` | Display text |
-| `read` | Read user input |
-| `chmod` | Change permissions |
-| `date` | Display date/time |
-| `tar` | Archive files |
-| `grep` | Search text |
-| `awk` | Text processing |
-| `sed` | Stream editor |
+| 700 | Owner has full access |
+| 755 | Owner full, others read/execute |
+| 644 | Owner read/write, others read |
 
 ---
 
-# Verification
+# 📌 Best Practices
 
-Check Bash version:
-
-```bash
-bash --version
-```
-
-Check script permissions:
-
-```bash
-ls -l script.sh
-```
-
-Run script:
-
-```bash
-./script.sh
-```
-
----
-
-# Troubleshooting
-
-## Permission Denied
-
-Fix:
-
-```bash
-chmod +x script.sh
-```
-
----
-
-## Bad Interpreter Error
-
-Check shebang:
+## Always Start with Shebang
 
 ```bash
 #!/bin/bash
@@ -605,26 +368,56 @@ Check shebang:
 
 ---
 
-## Command Not Found
-
-Install missing package:
+## Use Comments
 
 ```bash
-sudo apt install package-name
+# Backup important files
+```
+
+Comments improve readability and maintenance.
+
+---
+
+## Quote Variables
+
+```bash
+echo "$username"
+```
+
+This prevents issues with spaces and special characters.
+
+---
+
+## Test Scripts Safely
+
+- Test scripts in a non-production environment
+- Avoid running dangerous commands as root
+- Verify scripts before automation
+
+---
+
+# Example Full Bash Script
+
+```bash
+#!/bin/bash
+
+# Simple user greeting script
+
+read -p "Enter your name: " username
+
+if [ "$username" == "admin" ]; then
+  echo "Welcome Administrator!"
+else
+  echo "Welcome, $username!"
+fi
+
+echo "Today's date is $(date)"
 ```
 
 ---
 
 # Conclusion
 
-Bash scripting is an essential skill for Ubuntu Server administration. It allows administrators to automate repetitive tasks, improve efficiency, and manage systems more effectively.
+Bash scripting is an essential skill for Linux system administrators and DevOps engineers. By learning variables, loops, functions, conditionals, and automation tools like Cron, users can automate repetitive tasks and manage servers more efficiently.
 
-With Bash scripts, you can:
-
-- Automate server maintenance
-- Manage backups
-- Monitor systems
-- Deploy applications
-- Simplify administration tasks
-
-Learning Bash scripting is a fundamental step toward becoming a Linux system administrator or DevOps engineer.
+With regular practice, Bash scripting becomes a powerful tool for managing Ubuntu Server environments.
