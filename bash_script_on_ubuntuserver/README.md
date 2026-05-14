@@ -162,7 +162,7 @@ greet() {
   echo "Hello, $1!"
 }
 
-greet "Dan"
+greet "Thantzinaung"
 ```
 
 ### Explanation
