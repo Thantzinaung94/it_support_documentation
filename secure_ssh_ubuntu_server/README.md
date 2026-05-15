@@ -1,5 +1,8 @@
 # Secure Ubuntu Server 26.04: SSH Key Authentication and Disable Password Logins
 
+### Important Note :: firstly change default port (port 22 to port 2222 or other you like - in here I setup 8834 port) | if you want to change port go setup : 6 and return setup : 1 (setup:1 have to setup in client computer which you connect) | in here a little complicate
+
+
 One of the most effective ways to secure your Ubuntu Server is to use **SSH key authentication** and then disable password-based logins entirely. This greatly reduces the chances of unauthorized access, especially from brute-force attacks and automated bots.
 
 In this guide, you will learn:
@@ -97,12 +100,20 @@ Use the following command:
 
 ```bash
 ssh-copy-id youruser@your-server-ip
+
+(or)
+
+ssh-copy-id -p youport youruser@your-server-ip
 ```
 
 Example:
 
 ```bash
 ssh-copy-id ubuntu@192.168.1.100
+
+(or)
+
+ssh-copy-id -p 8834 thantzinaung@192.168.1.100
 ```
 
 You will be prompted for your server password one final time.
@@ -111,6 +122,8 @@ The public key will automatically be added to:
 
 ```bash
 ~/.ssh/authorized_keys
+
+cat ~/.ssh/authorized_keys
 ```
 
 ---
@@ -121,12 +134,20 @@ Now connect to your server:
 
 ```bash
 ssh youruser@your-server-ip
+
+(or)
+
+ssh -p yourport youruser@your-server-ip
 ```
 
 Example:
 
 ```bash
 ssh ubuntu@192.168.1.100
+
+(or)
+
+ssh -p 9934 thantzinaung@192.168.1.100
 ```
 
 If everything works correctly:
@@ -189,6 +210,43 @@ This prevents accidental lockouts.
 
 # Step 6 — Change the Default SSH Port (Optional but Recommended)
 
+## setup port 
+You can setup port number you want : like 2222 or other 8834 , 9984 , 9983 and more...
+ ---
+
+ ```bash
+port 8834
+ ```
+
+ ---
+
+## Allow the New Port Through the Firewall
+
+If using UFW:
+
+```bash
+sudo ufw allow 8834/tcp
+```
+
+---
+
+## Verify SSH Is Listening on the New Port
+
+Run:
+
+```bash
+ss -tulpn | grep 8834
+```
+
+Example output:
+
+```text
+tcp   LISTEN 0      128          0.0.0.0:8834       0.0.0.0:*
+```
+
+---
+
+
 Changing the SSH port reduces automated scanning and attack attempts.
 
 Ubuntu Server 26.04 may use `ssh.socket` with systemd socket activation.
@@ -232,32 +290,6 @@ sudo systemctl daemon-reload
 
 ```bash
 sudo systemctl restart ssh.socket
-```
-
----
-
-## Allow the New Port Through the Firewall
-
-If using UFW:
-
-```bash
-sudo ufw allow 8834/tcp
-```
-
----
-
-## Verify SSH Is Listening on the New Port
-
-Run:
-
-```bash
-ss -tulpn | grep 8834
-```
-
-Example output:
-
-```text
-tcp   LISTEN 0      128          0.0.0.0:8834       0.0.0.0:*
 ```
 
 ---
@@ -322,7 +354,7 @@ sudo systemctl start fail2ban
 Allow only trusted IP addresses:
 
 ```bash
-sudo ufw allow from 192.168.1.50 to any port 8834 proto tcp
+sudo ufw allow from 192.168.1.100 to any port 8834 proto tcp
 ```
 
 ---
