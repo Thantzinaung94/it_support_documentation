@@ -98,6 +98,8 @@ You will see:
 
 Use the following command:
 
+For Ubuntu client desktop :
+
 ```bash
 ssh-copy-id youruser@your-server-ip
 
@@ -115,6 +117,19 @@ ssh-copy-id ubuntu@192.168.1.100
 
 ssh-copy-id -p 8834 thantzinaung@192.168.1.100
 ```
+---
+
+For Windows 11 Client Computer :
+open powershell and type as following command -
+```bash
+type $env:USERPROFILE\.ssh\id_ed25519.pub | ssh -p 8834 thantzinaung@192.168.1.100 "cat >> ~/.ssh/authorized_keys"
+```
+
+for PuTTY :
+    stage 1 : open - PuTTYgen > load > choose ssh-key > save private key
+    stage 2 : open - PuTTY > change port (e.g 8834 important) > connection / SSH / Auth / Credentials / click - browse and choose .ppk where you save it > go session > save it
+
+---
 
 You will be prompted for your server password one final time.
 
