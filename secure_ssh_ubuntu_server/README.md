@@ -126,8 +126,8 @@ type $env:USERPROFILE\.ssh\id_ed25519.pub | ssh -p 8834 thantzinaung@192.168.1.1
 ```
 
 for PuTTY :
-    - stage 1 : open - PuTTYgen > load > choose ssh-key > save private key
-    - stage 2 : open - PuTTY > change port (e.g 8834 important) > connection / SSH / Auth / Credentials / click - browse and choose .ppk where you save it > go session > save it
+- stage 1 : open - PuTTYgen > load > choose ssh-key > save private key
+- stage 2 : open - PuTTY > change port (e.g 8834 important) > connection / SSH / Auth / Credentials / click - browse and choose .ppk where you save it > go session > save it
 
 ---
 
