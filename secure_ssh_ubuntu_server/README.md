@@ -441,3 +441,5 @@ In this guide, you learned how to:
 - Verify secure SSH access
 
 Using these techniques significantly reduces the risk of brute-force attacks and unauthorized access to your server.
+
+![Fail2ban_Status](./asset/image/fail2ban_status.png)
