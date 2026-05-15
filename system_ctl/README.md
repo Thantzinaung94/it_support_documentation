@@ -1,113 +1,341 @@
-Systemctl
-In Ubuntu Server 24.04, system processes such as the SSH service, Apache web server, and background jobs like cron are all controlled by a service manager called systemd. The main tool used to interact with systemd is the command-line utility: systemctl.
+# Systemctl on Ubuntu Server 24.04
 
-If you're administering a Linux server, knowing how to use systemctl is essential.
+In Ubuntu Server 26.04, system processes such as the SSH service, Apache web server, and background jobs like cron are all controlled by a service manager called **systemd**. The main tool used to interact with systemd is the command-line utility:
 
-What is systemctl?
-systemctl is a utility used to start, stop, manage, and inspect services (also called "units") on systems using systemd.
+```bash
+systemctl
+```
 
-It replaces older tools like service, and provides a more unified, powerful way to manage everything from web servers to system power events (like rebooting).
+If you're administering a Linux server, knowing how to use `systemctl` is essential.
 
+---
 
+# What is systemctl?
 
-Common systemctl Commands
-Here are the most useful systemctl commands you'll need:
+`systemctl` is a utility used to start, stop, manage, and inspect services (also called **units**) on systems using `systemd`.
 
+It replaces older tools like `service` and provides a more unified, powerful way to manage everything from web servers to system power events like rebooting and shutdown.
 
+---
 
-Start a Service
+# Common systemctl Commands
+
+Here are the most useful `systemctl` commands you'll need when managing an Ubuntu server.
+
+---
+
+## Start a Service
+
+```bash
 sudo systemctl start apache2
-Starts the Apache web server immediately, but it won’t start automatically at boot unless enabled.
+```
 
+Starts the Apache web server immediately.
 
+> Note: This does **not** make the service start automatically on boot.
 
-Stop a Service
+---
+
+## Stop a Service
+
+```bash
 sudo systemctl stop apache2
+```
+
 Stops the Apache service.
 
+---
 
+## Restart a Service
 
-Restart a Service
+```bash
 sudo systemctl restart apache2
-Useful after making configuration changes.
+```
 
+Useful after changing configuration files or applying updates.
 
+---
 
-Reload a Service’s Configuration
+## Reload a Service Configuration
+
+```bash
 sudo systemctl reload apache2
-Some services can reload configuration files without restarting.
+```
 
+Reloads configuration files without fully restarting the service.
 
+> Some services support reload, while others require a full restart.
 
-Enable a Service at Boot
+---
+
+## Enable a Service at Boot
+
+```bash
 sudo systemctl enable apache2
-This tells Ubuntu to start Apache automatically on system boot.
+```
 
+Configures Ubuntu to automatically start the service during system boot.
 
+---
 
-Disable a Service at Boot
+## Disable a Service at Boot
+
+```bash
 sudo systemctl disable apache2
-Stops the service from starting automatically on reboot.
+```
 
+Prevents the service from starting automatically after reboot.
 
+---
 
-Check the Status of a Service
+## Check the Status of a Service
+
+```bash
 sudo systemctl status apache2
-Gives detailed info about whether a service is running, when it started, and recent logs.
+```
 
+Displays detailed information about the service, including:
 
+- Running state
+- Process ID (PID)
+- Startup time
+- Recent logs
+- Error messages
 
-Is the Service Enabled?
+Example output:
+
+```bash
+● apache2.service - The Apache HTTP Server
+     Loaded: loaded (/lib/systemd/system/apache2.service; enabled)
+     Active: active (running)
+```
+
+---
+
+## Check if a Service is Enabled
+
+```bash
 sudo systemctl is-enabled apache2
-Tells you whether the service is set to start on boot.
+```
 
+Shows whether the service is configured to start automatically at boot.
 
+Possible outputs:
 
-Example: Managing SSH
-SSH is the most critical service for remote access. Here’s how to manage it:
+```bash
+enabled
+disabled
+static
+```
 
-Restart SSH:
+---
 
+# Example: Managing SSH
+
+SSH is one of the most important services on a server because it allows remote access.
+
+---
+
+## Restart SSH
+
+```bash
 sudo systemctl restart ssh
-Check if SSH is running:
+```
 
+---
+
+## Check SSH Status
+
+```bash
 sudo systemctl status ssh
-Make sure SSH starts on boot:
+```
 
+---
+
+## Enable SSH at Boot
+
+```bash
 sudo systemctl enable ssh
+```
 
+---
 
-View All Running Services
-You can view a list of running services with:
+# View Running Services
 
+To list all active running services:
+
+```bash
 systemctl list-units --type=service
-Add --all to see inactive services too:
+```
 
+To include inactive services as well:
+
+```bash
 systemctl list-units --type=service --all
+```
 
+---
 
-Bonus: Reboot and Shutdown
-Did you know you can also manage power operations?
+# View Failed Services
 
-Reboot the server:
+You can quickly identify failed services with:
 
+```bash
+systemctl --failed
+```
+
+This is useful for troubleshooting startup issues and crashed services.
+
+---
+
+# View Service Logs
+
+To see logs for a specific service:
+
+```bash
+journalctl -u apache2
+```
+
+View live logs in real time:
+
+```bash
+journalctl -u apache2 -f
+```
+
+---
+
+# Reload systemd After Editing Service Files
+
+If you create or modify a custom service file:
+
+```bash
+sudo systemctl daemon-reload
+```
+
+This reloads the systemd manager configuration.
+
+---
+
+# Working with Custom Services
+
+Service files are usually stored in:
+
+```bash
+/etc/systemd/system/
+```
+
+Example custom service:
+
+```bash
+sudo nano /etc/systemd/system/myapp.service
+```
+
+After creating the file:
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable myapp
+sudo systemctl start myapp
+```
+
+---
+
+# Reboot and Shutdown Commands
+
+`systemctl` can also manage system power operations.
+
+---
+
+## Reboot the Server
+
+```bash
 sudo systemctl reboot
-Power off the system:
+```
 
+---
+
+## Power Off the Server
+
+```bash
 sudo systemctl poweroff
+```
 
+---
 
-Security Tip
-Only users with sudo or root privileges can manage most system services using systemctl. Always be careful when stopping services like SSH, or you might lock yourself out of your server.
+## Suspend the System
 
+```bash
+sudo systemctl suspend
+```
 
+---
 
-Summary
-systemctl is the go-to command for managing services on Ubuntu Server.
+# Security Tip
 
-Use it to start, stop, enable, disable, and check service status.
+Only users with `sudo` or `root` privileges can manage most system services using `systemctl`.
 
-Mastering this tool is essential for maintaining and troubleshooting server environments.
+Be careful when restarting or stopping critical services such as:
+
+- `ssh`
+- `networking`
+- `mysql`
+- `apache2`
+
+Stopping the wrong service on a remote server may disconnect your session or make the server inaccessible.
+
+---
+
+# Helpful Tips
+
+## Check Boot Time
+
+```bash
+systemd-analyze
+```
+
+---
+
+## See Services Starting at Boot
+
+```bash
+systemctl list-unit-files --type=service
+```
+
+---
+
+## Mask a Service
+
+Masking completely prevents a service from being started.
+
+```bash
+sudo systemctl mask apache2
+```
+
+Unmask it:
+
+```bash
+sudo systemctl unmask apache2
+```
+
+---
+
+# Summary
+
+`systemctl` is the primary tool for managing services on Ubuntu Server.
+
+With it, you can:
+
+- Start and stop services
+- Restart and reload configurations
+- Enable or disable startup services
+- View logs and service status
+- Troubleshoot failed services
+- Manage system power operations
+
+Mastering `systemctl` is an essential skill for Linux system administrators and DevOps engineers.
 
 ## Resources
 [systemctl_cheat_sheet](./asset/pdf/systemctl%2BCheat%2BSheet.pdf)
+
+![systemctl_services](./asset/image/systemctl_services.png)
+![fail_service](./asset/image/fail_service.png)
