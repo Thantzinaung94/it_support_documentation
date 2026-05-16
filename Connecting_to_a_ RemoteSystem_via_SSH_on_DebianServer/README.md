@@ -481,3 +481,5 @@ SSH is one of the most important tools for Debian server administration. By usin
 Using SSH best practices significantly improves the security of your Debian infrastructure.
 
 ![connectToRemoteSystemOnUbuntuServer](./asset/image/connectToRemoteSystemOnUbuntuServer.png)
+![sshStatus](./asset/image/ssh_status.png)
+![connetct ssh](./asset/image/connect_ssh.png)
