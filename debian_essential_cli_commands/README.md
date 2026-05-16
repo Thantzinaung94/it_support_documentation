@@ -712,6 +712,23 @@ Meaning:
 
 # 15. Useful System Information Commands
 
+## Display OS Information
+```bash
+cat /etc/os-release
+```
+
+(or)
+
+```bash
+lsb_release -a
+```
+---
+
+## Check Kernel Version
+```bash
+uname -a
+```
+
 ## Check System Uptime
 
 ```bash
@@ -728,18 +745,28 @@ free -h
 
 ---
 
+## View Hard Disk Space 
+```bash
+df -h
+```
+---
+
+## View Network Properties(IP & Interface)
+```bash
+ip a
+```
+
+(or)
+
+```bash
+ip address
+```
+---
+
 ## Display CPU Information
 
 ```bash
 lscpu
-```
-
----
-
-## Display OS Information
-
-```bash
-cat /etc/os-release
 ```
 
 ---

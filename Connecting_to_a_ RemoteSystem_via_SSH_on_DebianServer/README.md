@@ -126,6 +126,16 @@ Then enter the password.
 
 ---
 
+## check who connect to server
+```bash
+who
+```
+(or)
+```bash
+w
+```
+---
+
 # SSH Connection Syntax
 
 ```bash
