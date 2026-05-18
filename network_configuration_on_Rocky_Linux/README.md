@@ -282,3 +282,4 @@ Replace `ens33` with your actual network interface name.
 Rocky Linux provides powerful networking tools such as `ip`, `nmcli`, and `nmtui` for managing network configurations. Using these tools, administrators can easily configure static IP addresses, DNS servers, and gateways for server environments.
 
 ![network_configuration](./asset/image/network_configuration_on_rockyLinux.png)
+![network_status](./asset/image/network_status.png)
