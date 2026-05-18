@@ -328,6 +328,8 @@ sudo apt full-upgrade
 
 ```bash
 sudo apt install nginx
+
+sudo apt --fix-broken install
 ```
 
 ---
@@ -336,6 +338,8 @@ sudo apt install nginx
 
 ```bash
 sudo apt remove nginx
+
+sudo apt purge nginx
 ```
 
 Remove configuration files too:
