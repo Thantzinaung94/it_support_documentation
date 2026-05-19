@@ -63,6 +63,17 @@ Create a group named `developers`:
 sudo groupadd developers
 ```
 
+Assingn a specific Group ID (GID) : use the `-g` flag to assgin a specific numeric ID to the group
+
+## Syntax
+```bash
+sudo groupadd -g groupid groupname
+```
+
+## Example
+```bash
+sudo groupadd -g 1050 students
+```
 ---
 
 # Step 3 — Verify the Group Creation
