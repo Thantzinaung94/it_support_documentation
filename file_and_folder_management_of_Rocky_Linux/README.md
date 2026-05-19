@@ -591,3 +591,4 @@ File and folder management is a fundamental skill for working with Rocky Linux s
 By mastering these commands, you can confidently handle daily Linux server administration tasks in real-world environments.
 
 ![FileAndFolderManagementOfRockyLinux](./asset/image/fileAndFolderManagementOfRockyLinux.png)
+[Linux_file_permissions_Cheat_sheet](./asset/image/Linux%2BFile%2BPermissions%2BCheat%2BSheet.pdf)

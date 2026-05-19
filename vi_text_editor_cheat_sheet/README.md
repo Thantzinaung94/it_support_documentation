@@ -295,4 +295,4 @@ d
 | `gg` | Top of File |
 | `G` | Bottom of File |
 
-![vi_text_editer_chet_sheet](./asset/image/)
+![vi_text_editer_chet_sheet](./asset/image/vi_text_editor_cheat_sheet.png)
