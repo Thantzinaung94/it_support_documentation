@@ -411,6 +411,8 @@ top
 Install improved version:
 
 ```bash
+sudo dnf makecache
+sudo dnf install epel-release -y
 sudo dnf install htop -y
 ```
 
@@ -505,7 +507,17 @@ sudo dnf install bind-utils -y
 ```bash
 df -h
 ```
+---
+## Check SSD Health
+```bash
+sudo dnf install smartmontools -y
 
+lsblk
+
+sudo smartctl -H /dev/nvme0n1 (your device name | -H = health)
+
+sudo smartctl -a /dev/nvme0n1 (-a = all)
+```
 ---
 
 ## Check Directory Size
@@ -574,6 +586,26 @@ journalctl
 journalctl -b
 ```
 
+## View Specific log
+```bash
+sudo journalctl -u httpd
+```
+
+## view Error Logs
+```bash
+sudo journalctl -p err..crit
+```
+
+## View by period
+```bash
+sudo journalctl --since today
+```
+
+## View by hour
+```bash
+sudo journalctl --since "1 hour ago"
+```
+
 ---
 
 ## Follow Live Logs
@@ -623,55 +655,6 @@ tar -czvf backup.tar.gz /home/student
 
 ---
 
-# 15. Hands-on Practice Tasks
-
-## Task 1 — Create Lab Workspace
-
-```bash
-mkdir ~/linux-lab
-cd ~/linux-lab
-```
-
----
-
-## Task 2 — Create and Manage Files
-
-```bash
-touch notes.txt
-cp notes.txt notes-backup.txt
-mv notes-backup.txt backup.txt
-```
-
----
-
-## Task 3 — Install Apache Web Server
-
-```bash
-sudo dnf install httpd -y
-sudo systemctl enable --now httpd
-systemctl status httpd
-```
-
----
-
-## Task 4 — Check Server Resources
-
-```bash
-free -h
-df -h
-top
-```
-
----
-
-## Task 5 — Monitor Logs
-
-```bash
-journalctl -f
-```
-
----
-
 # Best Practices
 
 - Always use `sudo` carefully
@@ -687,8 +670,6 @@ journalctl -f
 # Conclusion
 
 This hands-on lab introduced the essential commands required for managing an AlmaLinux server environment. These commands form the foundation for Linux system administration and are commonly used in server management, troubleshooting, networking, monitoring, and automation tasks.
-
-Regular practice with these commands will improve your efficiency and confidence when working with Linux servers.
 
 
 ![essential_almalinux_commands](./asset/image/alma_linux_essential_command.png)
