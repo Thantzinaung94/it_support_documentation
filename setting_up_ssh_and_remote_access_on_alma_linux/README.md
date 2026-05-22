@@ -437,13 +437,14 @@ scp -P 9988 -r thantzinaung@192.168.1.100:/home/thantzinaung .
 ```
 
 explanation : 
-|Option|Meaning|
+
+| Option | Meaning |
 |---|---|
-|-P|port|
-|9988|custom port|
-|-r|recursive|
-|/home/thantzinaung|path where you want to copy form server|
-|.|current location to store|
+| -P | port |
+| 9988 | custom port |
+| -r | recursive |
+| /home/thantzinaung | path where you want to copy form server |
+| . | current location to store |
 
 ---
 
