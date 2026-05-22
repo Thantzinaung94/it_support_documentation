@@ -483,3 +483,6 @@ You practiced:
 `firewalld` is an essential security tool for Linux server administration and helps protect servers from unauthorized access while allowing required network services.
 
 ![Firewall management with Firewalld guide](./asset/image/Firewall%20management%20with%20Firewalld%20guide.png)
+![firewall_status](./asset/image/firewall_status.png)
+![listCurrentFirewallRules](./asset/image/listCurrentFirewallRules.png)
+![zone_and_ICMP](./asset/image/zone_and_ICMP.png)
