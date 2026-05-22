@@ -286,9 +286,38 @@ su - username
 ```bash
 sudo dnf update
 ```
+---
+## search package
+```bash
+dnf search packagename
+```
+
+example:
+```bash
+dnf search apache
+```
+
+## chack info
+```bash
+dnf info packagename where you see using search package
+```
+ example :
+ ```bash
+ dnf info apr.x86_64
+ ```
 
 ---
 
+
+## Search Inside File 
+
+Search for specific text inside a file or output :
+
+```bash
+sudo grep "error" /var/log/messages
+```
+
+---
 ## Change File Permissions
 
 ```bash
