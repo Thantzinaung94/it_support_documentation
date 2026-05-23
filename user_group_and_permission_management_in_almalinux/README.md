@@ -394,6 +394,14 @@ chmod g-w file.txt
 chmod o+r notes.txt
 ```
 
+sample :
+
+| Numeric | Symbol | symbol |
+|---|---|---|
+| 4775 | u+s | rwsrwxr_x |
+| 2775 | g+s | rwxrwxsr_x |
+| 1775 | o+t | rwxrwxr_t |
+
 ---
 
 # 2️⃣ Numeric Mode
