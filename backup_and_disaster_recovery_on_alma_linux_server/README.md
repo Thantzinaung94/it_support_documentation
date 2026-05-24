@@ -220,7 +220,7 @@ ls -ld /backup
 Expected output:
 
 ```bash
-drwx------ root root
+drwx------ 4 root root 33 May 24 15:40 /backup
 ```
 
 ---
