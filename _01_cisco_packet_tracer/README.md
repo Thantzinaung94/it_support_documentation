@@ -201,3 +201,14 @@ This lab reinforces practical networking concepts commonly used in real-world ho
 
 > ⚠️ **Note:** To open and interact with this lab file, you will need **Cisco Packet Tracer** installed on your local machine. It is recommended to use the latest version to avoid any compatibility issues.
 ![network-topology-01](./asset/image/network-topology-01.png)
+
+
+## 🛠️ Lab Files & Interactive Testing
+
+You can download the official Cisco Packet Tracer source file directly to inspect the configurations, topology, and test the network connectivity yourself:
+
+💾 **[Download Cisco Packet Tracer Lab File (.pkt)](https://github.com/Thantzinaung94/it_support_documentation/releases/download/network-topology-01/deplying_devices.pkt)**
+
+> ⚠️ **Note:** To open and interact with this project, you will need **Cisco Packet Tracer** installed on your computer.
+
+![network-topology-01](./asset/image/network-topology-01.png)
