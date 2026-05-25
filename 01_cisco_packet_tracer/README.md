@@ -200,7 +200,7 @@ This lab reinforces practical networking concepts commonly used in real-world ho
 
 
 > ⚠️ **Note:** To open and interact with this lab file, you will need **Cisco Packet Tracer** installed on your local machine. It is recommended to use the latest version to avoid any compatibility issues.
-![network-topology-01](./asset/image/network-topology-01.png)
+**[network-topology-01](./packets/deplying_devices.pkt)**
 
 
 ## 🛠️ Lab Files & Interactive Testing
