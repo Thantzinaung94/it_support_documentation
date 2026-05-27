@@ -333,6 +333,6 @@ This setup can be expanded into a complete business phone system with:
 - Call center features
 
 
-![create_IVR](./asset/image/create_IVR.png)
+![](./asset/image/create_IVR.png)
 ![calling](./asset/image/calling.png)
 ![answer](./asset/image/answer.png)
