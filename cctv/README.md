@@ -247,3 +247,4 @@ Regular maintenance helps ensure reliable performance.
 CCTV systems are essential tools for modern security and surveillance. By understanding camera types, installation methods, storage systems, and maintenance procedures, organizations and individuals can build effective surveillance solutions for safety and monitoring purposes.
 
 ![CCTV](./asset/image/CCTV.png)
+![cctv_configuration_updated](./asset/image/cctv_configuration_updated.png)
