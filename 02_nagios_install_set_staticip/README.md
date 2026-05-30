@@ -547,5 +547,9 @@ Nagios CSP provides a powerful monitoring platform for servers, networks, and en
 
 ![cspInstallConfigure](./asset/image/cspInstallConfigure.png)
 ![nagiosinstallandsetstaticip](./asset/image/nagiosinstallandsetstaticip.png)
+![web_UI](./asset/image/web_UI.png)
+![setup1](./asset/image/setup1.png)
+![setup2](./asset/image/setup2.png)
+![setup3](./asset/image/setup3.png)
 
 [Nagios_CSP_Installation_Guide](./asset/pdf/Nagios_CSP_Installation_Guide.pdf)
