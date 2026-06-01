@@ -103,6 +103,10 @@ Find networking commands:
 Get-Command *net*
 ```
 
+```powershell
+Get-Command -Noun *net*  -Verb reset
+```
+
 ---
 
 # 4. Working with Directories
@@ -267,6 +271,8 @@ Restart-Service Spooler
 
 View running processes:
 
+if running notepad - 
+
 ```powershell
 Get-Process
 ```
@@ -427,12 +433,26 @@ Display latest 20 system events:
 
 ```powershell
 Get-EventLog -LogName System -Newest 20
+
+Get-EventLog -LogName System -Newest 20 | format-list
+
+Get-EventLog -LogName System -Newest 20 | format-list | Out-File c:\log.txt
+```
+
+output in the C:\
+```powershell
+Get-EventLog -LogName System -Newest 20 | format-list | Out-File c:\log.txt
 ```
 
 View recent errors:
 
 ```powershell
 Get-EventLog -LogName System -EntryType Error
+```
+Cann also use `Security` instead of `System` - Like :
+
+```powershell
+Get-EventLog -LogName Security -Newest 20 | format-list
 ```
 
 ---
@@ -555,6 +575,15 @@ Get-Service | Export-Csv C:\Lab\Services.csv -NoTypeInformation
 
 ---
 
+```powershell
+Get-Module
+```
+
+```powershell
+Import-Module -Name activedirectory
+```
+---
+
 # Essential PowerShell Cheat Sheet
 
 | Task              | Command                |
@@ -573,9 +602,19 @@ Get-Service | Export-Csv C:\Lab\Services.csv -NoTypeInformation
 | Event Logs        | Get-EventLog           |
 | Disk Information  | Get-Disk               |
 | Remote Commands   | Invoke-Command         |
+| Module            | Get-Module             |
 
 ---
 
 # Conclusion
 
 PowerShell is an essential administration tool for Windows Server 2022. Learning these core commands provides a strong foundation for server management, automation, monitoring, and troubleshooting. Mastering PowerShell allows administrators to perform tasks more efficiently than using graphical tools alone.
+
+Can learn to know more about powershell `https://www.powershellgallery.com/`.
+
+![essentialPowerShellCommands](./image/essentialPowerShellCommands.png)
+![01](./image/01.png)
+![02](./image/02.png)
+![03](./image/03.png)
+![04](./image/04.png)
+![05](./image/05.png)
