@@ -27,8 +27,6 @@ Partition တစ်ခုချင်းစီသည် Replication Scope နှ
 
 # 1. Configuration Partition
 
-## အဓိပ္ပါယ်
-
 Configuration Partition တွင် Active Directory Forest ၏ Configuration ဆိုင်ရာ Information များကို သိမ်းဆည်းထားသည်။
 
 ဥပမာ -
@@ -41,11 +39,7 @@ Configuration Partition တွင် Active Directory Forest ၏ Configuration �
 
 ## Replication
 
-Configuration Partition သည်
-
-**Forest-wide Replication**
-
-ဖြစ်ပြီး Forest အတွင်းရှိ Domain Controller အားလုံးသို့ Replicate လုပ်သည်။
+Configuration Partition သည် **Forest-wide Replication** ဖြစ်ပြီး Forest အတွင်းရှိ Domain Controller အားလုံးသို့ Replicate လုပ်သည်။
 
 ## LDAP Path
 
@@ -66,8 +60,6 @@ Administrator များသည်
 ---
 
 # 2. Schema Partition
-
-## အဓိပ္ပါယ်
 
 Schema Partition သည် Active Directory ၏ Blueprint ဖြစ်သည်။
 
@@ -102,11 +94,7 @@ dNSHostName
 
 ## Replication
 
-Schema Partition သည်
-
-**Forest-wide Replication**
-
-ဖြစ်သည်။
+Schema Partition သည် **Forest-wide Replication** ဖြစ်သည်။
 
 Forest အတွင်းရှိ Domain Controller အားလုံးသို့ Replicate လုပ်သည်။
 
@@ -118,17 +106,11 @@ CN=Schema,CN=Configuration,DC=company,DC=com
 
 ## Schema Master Role
 
-Schema ပြောင်းလဲမှုများကို
-
-**Schema Master FSMO Role**
-
-ရှိသော Domain Controller တွင်သာ ပြုလုပ်နိုင်သည်။
+Schema ပြောင်းလဲမှုများကို **Schema Master FSMO Role** ရှိသော Domain Controller တွင်သာ ပြုလုပ်နိုင်သည်။
 
 ---
 
 # 3. Domain Partition
-
-## အဓိပ္ပါယ်
 
 Domain Partition သည် Domain အတွက် အရေးကြီးဆုံး Partition ဖြစ်သည်။
 
@@ -150,11 +132,7 @@ DC=company,DC=com
 
 ## Replication
 
-Domain Partition သည်
-
-**Domain-wide Replication**
-
-ဖြစ်သည်။
+Domain Partition သည် **Domain-wide Replication** ဖြစ်သည်။
 
 Domain တစ်ခုအတွင်းရှိ Domain Controllers များသာ Replicate လုပ်ကြသည်။
 
@@ -169,17 +147,13 @@ corp.local
 └── Mandalay.corp.local
 ```
 
-Yangon Domain မှ User Object များကို
-
-Mandalay Domain DC များထံ မပို့ပါ။
+Yangon Domain မှ User Object များကို Mandalay Domain DC များထံ မပို့ပါ။
 
 Domain အတွင်းရှိ DC များသို့သာ Replicate လုပ်သည်။
 
 ---
 
 # Global Catalog (GC)
-
-Diagram ထဲတွင် Domain Partition အနီးတွင် Global Catalog ကို ဖော်ပြထားသည်။
 
 ## Global Catalog ဆိုသည်မှာ
 
@@ -198,7 +172,12 @@ User A သည် Yangon Domain တွင်ရှိသည်။
 User B သည် Mandalay Domain တွင်ရှိသည်။
 ```
 
-GC Server သည် Forest တစ်ခုလုံးကို Search ပြုလုပ်နိုင်သည်။
+## Global Catalog (GC)
+- လုပ်ဆောင်ချက်: Global Catalog သည် Forest အတွင်းရှိ Domain အားလုံးတွင်ရှိသော Object များ၏ အစိတ်အပိုင်းအချို့ (Subset) ကို စုစည်းထားသည့် အထူးအပိုင်းဖြစ်သည်။
+- အရေးပါပုံ: မတူညီသော Domain များအကြား Object များကို ရှာဖွေနိုင်ရန် ကူညီပေးသည် (ဥပမာ - Yangon domain ရှိ စက်တစ်ခုမှ Mandalay domain ရှိ User တစ်ဦးကို ရှာဖွေနိုင်ခြင်း)။
+- အသုံးပြုမှု: Domain တစ်ခုတည်းသာရှိသော Network တွင် GC သည် အရေးမပါသော်လည်း Domain များစွာရှိသော Forest ပတ်ဝန်းကျင်တွင် အလွန်အရေးကြီးပါသည်။
+
+* GC Server သည် Forest တစ်ခုလုံးကို Search ပြုလုပ်နိုင်သည်။
 
 ## GC Port
 
@@ -216,13 +195,7 @@ SSL
 
 # 4. Application Partition
 
-## အဓိပ္ပါယ်
-
-Application Partition သည် Custom Replication Scope လိုအပ်သော Data များအတွက် အသုံးပြုသည်။
-
-Administrator များသည်
-
-Replication လုပ်မည့် Domain Controller များကို ရွေးချယ်နိုင်သည်။
+Application Partition သည် စိတ်ကြိုက် (Custom) တည်ဆောက်နိုင်သော Partition ဖြစ်ပြီး မည်သည့် DC များထံသို့ Replicate လုပ်မည်ကို ရွေးချယ်နိုင်သည် ။ ယနေ့ခေတ်တွင် DNS အချက်အလက်များ (Forest DNS zone နှင့် Domain DNS zone) အတွက် အဓိက အသုံးပြုပါသည် 
 
 ## Replication
 
@@ -370,7 +343,7 @@ dcdiag /test:dns
 
 ---
 
-# နိဂုံး
+# Conclusion
 
 Windows Server 2022 Active Directory Database (NTDS.dit) ကို အဓိကအားဖြင့်
 
