@@ -440,3 +440,9 @@ Multiple Sites Example
 Windows Server 2022 တွင် Active Directory Sites and Services ကို အသုံးပြု၍ Site Topology များ၊ Subnet Mapping များနှင့် Domain Controller Replication Connections များကို အလွယ်တကူ Visualize ပြုလုပ်နိုင်သည်။
 
 Replication Health ကို Repadmin နှင့် PowerShell Commands များဖြင့် စစ်ဆေးနိုင်ပြီး Site Links များကို အသုံးပြု၍ WAN Environment များတွင် Replication Traffic ကို ထိရောက်စွာ စီမံခန့်ခွဲနိုင်သည်။
+
+---
+
+![visualizeSiteAndReplication](./asset/image/visualizeSiteAndReplication.png)
+![01](./asset/image/01.png)
+![02](./asset/image/02.png)
