@@ -499,7 +499,6 @@ Domain Local Group
 Resource
 └── C:\Sales DB
 ```
-
 ---
 
 # Conclusion
@@ -509,9 +508,11 @@ In this lab, I successfully created and managed Active Directory security groups
 ---
 
 ![AD_Group_Management](./asset/image/AD_Group_Management.png)
-![01](./asset/image/01.png)
-![02](./asset/image/02.png)
-![03](./asset/image/03.png)
-![04](./asset/image/04.png)
-![05](./asset/image/05.png)
-![06](./asset/image/06.png)
+![01](./asset/image/01.jpg)
+![02](./asset/image/02.jpg)
+![03](./asset/image/03.jpg)
+![04](./asset/image/04.jpg)
+![05](./asset/image/05.jpg)
+![06](./asset/image/06.jpg)
+
+---
