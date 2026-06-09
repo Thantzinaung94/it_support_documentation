@@ -552,5 +552,3 @@ This approach enables efficient automation and large-scale Active Directory admi
 ![10](./asset/image/10.jpg)
 ![11](./asset/image/11.jpg)
 ![12](./asset/image/12.jpg)
-![13](./asset/image/13.jpg)
-![14](./asset/image/14.jpg)
