@@ -1,5 +1,3 @@
-# Windows Server 2022 Home Lab Documentation
-
 # Client Domain Joining (Windows 7 & Ubuntu Linux 20.04)
 
 ## Lab Overview
@@ -569,3 +567,6 @@ This home lab demonstrates how to integrate both Windows 7 and Ubuntu Linux 20.0
 ![11](./asset/image/11.jpg)
 ![12](./asset/image/12.jpg)
 ![13](./asset/image/13.jpg)
+![01](./asset/image/01.png)
+
+
